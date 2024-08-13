@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Autor;
-use App\Models\Livro;
-use App\Models\LivroAutor;
+use App\Models\Emprestimos;
+use App\Models\Livros;
+use App\Models\Generos;
+use App\Models\Membros;
+
 use Illuminate\Support\Facades\DB;
 
 class ControladorLivros extends Controller
@@ -15,7 +17,7 @@ class ControladorLivros extends Controller
      */
     public function index()
     {
-        $dados = Livro::all();
+        $dados = Livros::all();
         return view('exibeLivros', compact('dados'));
     }
 

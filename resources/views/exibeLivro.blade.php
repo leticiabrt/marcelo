@@ -25,9 +25,9 @@
                 <tbody>
                     @foreach ($dados as $item)
                     <tr>
-                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->idLivros }}</td>
                         <td>{{ $item->Titulo }}</td>
-                        <td>{{ $item->AnoPublicacao }}</td>
+                        <td>{{ $item->Paginas }}</td>
                         <td style="text-align:center">
                             <a href="/novoAutorLivro/{{$item->id}}" class="btn btn-success">Cadastra Autor</a>
                         </td>

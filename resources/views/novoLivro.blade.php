@@ -18,17 +18,17 @@
             </div>
             <hr>
             <div class="form-group">
+                <label for="ano">Proprietário do livro:</label>
+                <input type="text" class="form-control" name="prop" 
+                       placeholder="Informe o proprietário do livro">
+            </div>
+            <hr>
+            <hr>
+            <div class="form-group">
                 <label for="ano">Autor:</label>
                 <input type="text" class="form-control" name="autor" 
                        placeholder="Informe o ano de publicação">
             </div>
-            <hr>
-            <div class="form-group">
-                <label for="ano">Páginas:</label>
-                <input type="number" class="form-control" name="pag" 
-                       placeholder="Informe a quantidade de páginas">
-            </div>
-            <hr>
             <div class="form-group">
                 <label for="ano">Gênero:</label>
                 <input type="text" class="form-control" name="genero" 

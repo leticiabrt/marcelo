@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-sm-3 text-center">
                 <button type="button" class="btn">
-                <a href="{{route('novoLivro')}}"><img src="{!! asset('img/livros.png')!!}"></a>
+                <a href="{{route('exibeLivros')}}"><img src="{!! asset('img/livros.png')!!}"></a>
                 </button>
             </div>
             <div class="col-sm-3 text-center">
