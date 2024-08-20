@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Emprestimos;
-use App\Models\Livros;
-use App\Models\Generos;
-use App\Models\Membros;
+use App\Models\Emprestimo;
+use App\Models\Livro;
+use App\Models\Genero;
+use App\Models\Membro;
 
 use Illuminate\Support\Facades\DB;
 
@@ -17,8 +17,8 @@ class ControladorLivros extends Controller
      */
     public function index()
     {
-        $dados = Livros::all();
-        return view('exibeLivros', compact('dados'));
+        $dados = Livro::all();
+        return view('exibeLivro', compact('dados'));
     }
 
     /**
@@ -36,7 +36,9 @@ class ControladorLivros extends Controller
     {
         $dados = new Livro();
         $dados->Titulo = $request->input('titulo');
-        $dados->AnoPublicacao = $request->input('ano');
+        $dados->Autor = $request->input('autor');
+        $dados->Prop = $request->input('membros');
+        $dados->Genero = $request->input('generos');
         if($dados->save())
             return redirect('/livro')->with('success', 'Livro cadastrado com sucesso!!');
         return redirect('/livro')->with('danger', 'Erro ao cadastrar livro!');
@@ -69,7 +71,8 @@ class ControladorLivros extends Controller
         $dados = Livro::find($id);
         if(isset($dados)){
             $dados->Titulo = $request->input('titulo');
-            $dados->AnoPublicacao = $request->input('ano');
+            $dados->Ano = $request->input('ano');
+            $dados->Autor = $request->input('autor');
             $dados->save();
             return redirect('/livro')->with('success', 'Livro cadastrado com sucesso!!');
         }else{

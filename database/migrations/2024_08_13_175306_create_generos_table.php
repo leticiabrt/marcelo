@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('livros', function (Blueprint $table) {
+        Schema::create('generos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('Título');
-            $table->string('Autor');
+            $table->string('Genero');
+            $table->string('Descricao');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('livros');
+        Schema::dropIfExists('generos');
     }
 };

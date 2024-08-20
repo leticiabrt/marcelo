@@ -12,37 +12,37 @@
         </div><br />
     @endif
     <div class="card-body py-4">
-        <h5 class="card-title" style="text-align: center">Cadastro de Livros</h5>
+        <h5 class="card-title" style="text-align: center">Listagem de Livros</h5>
             <table class="table table-ordered table-hover">
                 <thead>
                     <tr>
                         <th>id</th>
                         <th>Título</th>
-                        <th>Ano de publicação</th>
+                        <th>Autor</th>
+                        <th>Gênero</th>
                         <th style="text-align:center" colspan="4">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($dados as $item)
+                    @foreach ($dados as $item=>$i)
                     <tr>
-                        <td>{{ $item->idLivros }}</td>
-                        <td>{{ $item->Titulo }}</td>
-                        <td>{{ $item->Paginas }}</td>
+                        <td>{{ $i['idLivros'] }}</td>
+                        <td>{{ $i['Titulo'] }}</td>
+                        <td>{{ $i['Autor']}}</td>
+                        
                         <td style="text-align:center">
-                            <a href="/novoAutorLivro/{{$item->id}}" class="btn btn-success">Cadastra Autor</a>
+                            <a href="/livro/editar/{{$i['id']}}" class="btn btn-outline-primary">Editar</a>
                         </td>
                         <td style="text-align:center">
-                            <a href="/livroAutor/detalhes/{{$item->id}}" class="btn btn-secondary">Detalhes</a>
-                        </td>
-                        <td style="text-align:center">
-                            <a href="/livro/editar/{{$item->id}}" class="btn btn-outline-primary">Editar</a>
-                        </td>
-                        <td style="text-align:center">
-                            <a href="/livro/apagar/{{$item->id}}" class="btn btn-outline-danger" 
+                            <a href="/livro/apagar/{{$i['id']}}" class="btn btn-outline-danger" 
                                onclick="return confirm('Tem certeza de que deseja remover?');">Deletar</a>
                         </td>
+                        
                     </tr>  
                     @endforeach
+                    <h1 style="text-align:center">
+                        <a href="/livro/novo" class="btn btn-outline-primary">Novo Livro</a>
+</h1>
                 </tbody>
             </table>
     </div>

@@ -18,19 +18,19 @@
             </div>
             <hr>
             <div class="form-group">
-                <label for="ano">Proprietário do livro:</label>
-                <input type="text" class="form-control" name="prop" 
+                <label for="membros">Proprietário do livro:</label>
+                <input type="text" class="form-control" name="membros" 
                        placeholder="Informe o proprietário do livro">
             </div>
             <hr>
+            <div class="form-group">
+                <label for="autor">Autor:</label>
+                <input type="text" class="form-control" name="autor" 
+                       placeholder="Informe o autor do livro">
+            </div>
             <hr>
             <div class="form-group">
-                <label for="ano">Autor:</label>
-                <input type="text" class="form-control" name="autor" 
-                       placeholder="Informe o ano de publicação">
-            </div>
-            <div class="form-group">
-                <label for="ano">Gênero:</label>
+                <label for="genero">Gênero:</label>
                 <input type="text" class="form-control" name="genero" 
                        placeholder="Informe o gênero">
             </div>

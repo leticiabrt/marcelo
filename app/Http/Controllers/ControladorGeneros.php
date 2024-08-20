@@ -8,7 +8,7 @@ use App\Models\Livro;
 use App\Models\LivroAutor;
 use Illuminate\Support\Facades\DB;
 
-class ControladorGeneros extends Controller
+class ControladorGenero extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class ControladorGeneros extends Controller
     public function index()
     {
         $dados = Livro::all();
-        return view('exibeLivros', compact('dados'));
+        return view('exibeGenero', compact('dados'));
     }
 
     /**

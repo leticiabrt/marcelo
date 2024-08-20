@@ -16,8 +16,6 @@ return new class extends Migration
             $table->string('Nome');
             $table->string('CPF');
             $table->string('Telefone');
-            $table->unsignedBigInteger('livros_id');
-            $table->foreign('livros_id')->references('id')->on('livros');
             $table->timestamps();
         });
     }
