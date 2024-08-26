@@ -15,7 +15,4 @@ class Livro extends Model
     public function membro(){
         return $this->hasMany('App\Models\Membros', 'membros_id');
     }
-    public function genero(){
-        return $this->hasMany('App\Models\Generos', 'generos_id');
-    }
 }

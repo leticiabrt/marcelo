@@ -19,8 +19,11 @@
             <hr>
             <div class="form-group">
                 <label for="membros">Proprietário do livro:</label>
-                <input type="text" class="form-control" name="membros" 
-                       placeholder="Informe o proprietário do livro">
+                <select name="membros">
+                    @foreach($membro as $item)
+                        <option value="{{$item->id}}"></option>
+                    @endforeach
+                </select>
             </div>
             <hr>
             <div class="form-group">

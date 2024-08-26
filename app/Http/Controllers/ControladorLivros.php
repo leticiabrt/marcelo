@@ -26,7 +26,9 @@ class ControladorLivros extends Controller
      */
     public function create()
     {
-        return view('novoLivro');
+        $genero = Genero::all();
+        $membro = Membro::all();
+        return view('novoLivro', compact('genero', 'membro'));
     }
 
     /**
