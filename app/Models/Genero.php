@@ -10,6 +10,6 @@ class Genero extends Model
     use HasFactory;
     protected $fillable = ['genero, descricao'];
     public function livro(){
-        return $this->hasMany('App\Models\Livros', 'livros_id');
+        return $this->hasMany('App\Models\Livros', 'livro_id');
     }
 } 

@@ -8,11 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Livro extends Model
 {
     use HasFactory;
-    protected $fillable = ['titulo, autor, genero'];
+    protected $fillable = ['Titulo, Autor, Genero'];
     public function emprestimo(){
         return $this->hasMany('App\Models\Emprestimos', 'livros_id');
     }
     public function membro(){
         return $this->hasMany('App\Models\Membros', 'membros_id');
+    }
+
+    public function Genero(){
+        return $this->belongTo('App\Models\Livros');
     }
 }

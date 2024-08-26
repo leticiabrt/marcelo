@@ -21,7 +21,7 @@
                 <label for="membros">Proprietário do livro:</label>
                 <select name="membros">
                     @foreach($membro as $item)
-                        <option value="{{$item->id}}"></option>
+                        <option value="{{$item->id}}">{{$item->Nome}}</option>
                     @endforeach
                 </select>
             </div>
@@ -33,9 +33,12 @@
             </div>
             <hr>
             <div class="form-group">
-                <label for="genero">Gênero:</label>
-                <input type="text" class="form-control" name="genero" 
-                       placeholder="Informe o gênero">
+                <label for="generos">Gênero:</label>
+                <select name="generos">
+                    @foreach($genero as $item)
+                        <option value="{{$item->id}}">{{$item->Genero}}</option>
+                    @endforeach
+                </select>
             </div>
             <hr>
             <button type="submit" class="btn btn-outline-primary btn-sm">Salvar</button>
