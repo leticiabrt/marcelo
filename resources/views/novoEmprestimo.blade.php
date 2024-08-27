@@ -12,32 +12,32 @@
         <form action="{{route('gravaNovoEmprestimo')}}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="nome1">Locador:</label>
-                <input type="text" class="form-control" name="nome1" 
-                       placeholder="Informe o nome do dono do livro que será emprestado">
+                <label for="nome">Locatário</label>
+                <select name="nome">
+                    @foreach($membro as $item)
+                        <option value="{{$item->id}}">{{$item->Nome}}</option>
+                    @endforeach
+                </select>
             </div>
             <hr>
             <div class="form-group">
-                <label for="nome2">Locatário</label>
-                <input type="text" class="form-control" name="nome2" 
-                       placeholder="Informe o nome do membro que alugará o livro">
+                <label for="livro">Livro:</label>
+                <select name="livro">
+                    @foreach($livro as $item)
+                        <option value="{{$item->id}}">{{$item->Titulo}}</option>
+                    @endforeach
+                </select>
             </div>
             <hr>
             <div class="form-group">
-                <label for="livro">Livro(s):</label>
-                <input type="text" class="form-control" name="livro" 
-                       placeholder="Informe o nome dos livros">
-            </div>
-            <hr>
-            <div class="form-group">
-                <label for="data1">Data empréstimo:</label>
-                <input type="date" class="form-control" name="data1" 
+                <label for="dataemp">Data empréstimo:</label>
+                <input type="date" class="form-control" name="dataemp" 
                        placeholder="Informe a data que o livro será emprestado">
             </div>
             <hr>
             <div class="form-group">
-                <label for="data2">Data devolução:</label>
-                <input type="date" class="form-control" name="data2" 
+                <label for="datadev">Data devolução:</label>
+                <input type="date" class="form-control" name="datadev" 
                        placeholder="Informe a data que o livro deve ser devolvido">
             </div>
             <hr>

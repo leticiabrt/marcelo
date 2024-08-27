@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Membro extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome, CPF, telefone'];
+    protected $fillable = ['Nome, CPF, Telefone'];
     public function emprestimo(){
         return $this->hasMany('App\Models\Emprestimos', 'emprestimos_id');
     }

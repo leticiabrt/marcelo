@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Autor;
+use App\Models\Emprestimo;
 use App\Models\Livro;
-use App\Models\LivroAutor;
+use App\Models\Membro;
 use Illuminate\Support\Facades\DB;
 
 class ControladorEmprestimos extends Controller
@@ -15,8 +15,14 @@ class ControladorEmprestimos extends Controller
      */
     public function index()
     {
-        $dados = Livro::all();
-        return view('exibeLivros', compact('dados'));
+        $dados = Emprestimo::all();
+        foreach($dados as $item){
+            $membro = Membro::find($item -> locatario_id);
+            $item -> Locatario=$membro-> Nome;
+            $Livro = Livro::find($item-> livros_id);
+            $item -> Livros=$Livro->Titulo;
+        }
+        return view('exibeEmprestimo', compact('dados'));
     }
 
     /**
@@ -24,7 +30,9 @@ class ControladorEmprestimos extends Controller
      */
     public function create()
     {
-        return view('novoEmprestimo');
+        $livro = Livro::all();
+        $membro = Membro::all();
+        return view('novoEmprestimo',  compact('livro', 'membro'));
     }
 
     /**
@@ -32,12 +40,14 @@ class ControladorEmprestimos extends Controller
      */
     public function store(Request $request)
     {
-        $dados = new Livro();
-        $dados->Titulo = $request->input('titulo');
-        $dados->AnoPublicacao = $request->input('ano');
+        $dados = new Emprestimo();
+        $dados->DataEmprestimo = $request->input('dataemp');
+        $dados->DataDevolucao = $request->input('datadev');
+        $dados->livros_id = $request->input('livro');
+        $dados->locatario_id = $request->input('nome');
         if($dados->save())
-            return redirect('/livro')->with('success', 'Livro cadastrado com sucesso!!');
-        return redirect('/livro')->with('danger', 'Erro ao cadastrar livro!');
+            return redirect('/emprestimo')->with('success', 'Empréstimo cadastrado com sucesso!!');
+        return redirect('/emprestimo')->with('danger', 'Erro ao cadastrar empréstimo!');
     }
 
     /**
@@ -53,10 +63,12 @@ class ControladorEmprestimos extends Controller
      */
     public function edit(string $id)
     {
-        $dados = Livro::find($id);
+        $dados = Emprestimo::find($id);
+        $livro = Livro::all();
+        $membro = Membro::all();
         if(isset($dados))
-            return view('editaLivro', compact('dados'));
-        return redirect('/livro')->with('danger', 'Cadastro do livro não localizado!');
+            return view('editaEmprestimo', compact('dados', 'livro', 'membro'));
+        return redirect('/emprestimo')->with('danger', 'Cadastro do empréstimo não localizado!');
     }
 
     /**
@@ -64,14 +76,16 @@ class ControladorEmprestimos extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $dados = Livro::find($id);
+        $dados = Emprestimo::find($id);
         if(isset($dados)){
-            $dados->Titulo = $request->input('titulo');
-            $dados->AnoPublicacao = $request->input('ano');
+            $dados->DataEmprestimo = $request->input('dataemp');
+            $dados->DataDevolucao = $request->input('datadev');
+            $dados->livros_id = $request->input('livro');
+            $dados->locatario_id = $request->input('nome');
             $dados->save();
-            return redirect('/livro')->with('success', 'Livro cadastrado com sucesso!!');
+            return redirect('/emprestimo')->with('success', 'Empréstimo cadastrado com sucesso!!');
         }else{
-            return redirect('/livro')->with('danger', 'Cadastro do livro não localizado!');
+            return redirect('/emprestimo')->with('danger', 'Cadastro do empréstimo não localizado!');
         }
     }
 
@@ -80,36 +94,13 @@ class ControladorEmprestimos extends Controller
      */
     public function destroy(string $id)
     {
-        $dados = Livro::find($id);
-        if(isset($dados)){
-            $livros = LivroAutor::where('autor_id', '=', $id)->first();
-            if(!isset($livros)){
+        $dados = Emprestimo::find($id);
+            if(isset($dados)){
                 $dados->delete();
-                return redirect('/livro')->with('success', 'Cadastro do livro deletado com sucesso!!');
+                return redirect('/emprestimo')->with('success', 'Cadastro do empréstimo deletado com sucesso!!');
             }else{
-                return redirect('/livro')->with('danger', 'Cadastro não pode ser excluído!!');
+                return redirect('/emprestimo')->with('danger', 'Cadastro não pode ser excluído!!');
             } 
-        }else{
-            return redirect('/livro')->with('danger', 'Cadastro não localizado!!');
-        } 
-    }
-    public function pesquisaLivro(){
-        $dados = array("tabela" => "livro");
-        return view('pesquisa', compact('dados'));
-    }
-    public function procuraLivro(Request $request){
-        $titulo = $request->input('texto');
-        $dados = DB::table('livros')->select('id', 'Titulo', 'AnoPublicacao')->where(DB::raw('lower(Titulo)'), 'like', '%' . strtolower($titulo) . '%')->get();
-        return view('exibeLivros', compact('dados'));
-    }
-    public function novoAutor($id){
-        $dados = DB::table('autors')->orderBy('Nome')->get();
-        if(isset($dados)){
-            $livro = Livro::find($id);
-            $dados->Titulo = $livro->Titulo;
-            $dados->livro_id = $id;
-            return view('novoAutorLivro', compact('dados'));
-        }
-        return redirect('/livro')->with('danger', 'Não há autores cadastrados!!');
+        
     }
 }

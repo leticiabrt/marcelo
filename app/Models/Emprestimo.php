@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Emprestimo extends Model
 {
     use HasFactory;
-    protected $fillable = ['dtemprestimo, dtdevolucao'];
+    protected $fillable = ['DataEmprestimo, DataDevolucao'];
     public function livros(){
         return $this->belongsTo('App\Models\Livros');
     }

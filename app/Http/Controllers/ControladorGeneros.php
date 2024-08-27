@@ -3,19 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Autor;
-use App\Models\Livro;
-use App\Models\LivroAutor;
+use App\Models\Genero;
 use Illuminate\Support\Facades\DB;
 
-class ControladorGenero extends Controller
+class ControladorGeneros extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $dados = Livro::all();
+        $dados = Genero::all();
         return view('exibeGenero', compact('dados'));
     }
 
@@ -32,12 +30,12 @@ class ControladorGenero extends Controller
      */
     public function store(Request $request)
     {
-        $dados = new Livro();
-        $dados->Titulo = $request->input('titulo');
-        $dados->AnoPublicacao = $request->input('ano');
+        $dados = new Genero();
+        $dados->Genero = $request->input('Genero');
+        $dados->Descricao = $request->input('Descricao');
         if($dados->save())
-            return redirect('/livro')->with('success', 'Livro cadastrado com sucesso!!');
-        return redirect('/livro')->with('danger', 'Erro ao cadastrar livro!');
+            return redirect('/genero')->with('success', 'Gênero cadastrado com sucesso!!');
+        return redirect('/genero')->with('danger', 'Erro ao cadastrar gênero!');
     }
 
     /**
@@ -53,10 +51,10 @@ class ControladorGenero extends Controller
      */
     public function edit(string $id)
     {
-        $dados = Livro::find($id);
+        $dados = Genero::find($id);
         if(isset($dados))
-            return view('editaLivro', compact('dados'));
-        return redirect('/livro')->with('danger', 'Cadastro do livro não localizado!');
+            return view('editaGenero', compact('dados'));
+        return redirect('/genero')->with('danger', 'Cadastro do gênero não localizado!');
     }
 
     /**
@@ -64,14 +62,14 @@ class ControladorGenero extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $dados = Livro::find($id);
+        $dados = Genero::find($id);
         if(isset($dados)){
-            $dados->Titulo = $request->input('titulo');
-            $dados->AnoPublicacao = $request->input('ano');
+            $dados->Genero = $request->input('genero');
+            $dados->Descricao = $request->input('descricao');
             $dados->save();
-            return redirect('/livro')->with('success', 'Livro cadastrado com sucesso!!');
+            return redirect('/genero')->with('success', 'Gênero cadastrado com sucesso!!');
         }else{
-            return redirect('/livro')->with('danger', 'Cadastro do livro não localizado!');
+            return redirect('/genero')->with('danger', 'Cadastro do gênero não localizado!');
         }
     }
 
@@ -80,36 +78,14 @@ class ControladorGenero extends Controller
      */
     public function destroy(string $id)
     {
-        $dados = Livro::find($id);
-        if(isset($dados)){
-            $livros = LivroAutor::where('autor_id', '=', $id)->first();
-            if(!isset($livros)){
+        $dados = Genero::find($id);
+            if(isset($dados)){
                 $dados->delete();
-                return redirect('/livro')->with('success', 'Cadastro do livro deletado com sucesso!!');
+                return redirect('/genero')->with('success', 'Cadastro do gênero deletado com sucesso!!');
             }else{
-                return redirect('/livro')->with('danger', 'Cadastro não pode ser excluído!!');
+                return redirect('/genero')->with('danger', 'Cadastro não pode ser excluído!!');
             } 
-        }else{
-            return redirect('/livro')->with('danger', 'Cadastro não localizado!!');
-        } 
+        
     }
-    public function pesquisaLivro(){
-        $dados = array("tabela" => "livro");
-        return view('pesquisa', compact('dados'));
-    }
-    public function procuraLivro(Request $request){
-        $titulo = $request->input('texto');
-        $dados = DB::table('livros')->select('id', 'Titulo', 'AnoPublicacao')->where(DB::raw('lower(Titulo)'), 'like', '%' . strtolower($titulo) . '%')->get();
-        return view('exibeLivros', compact('dados'));
-    }
-    public function novoAutor($id){
-        $dados = DB::table('autors')->orderBy('Nome')->get();
-        if(isset($dados)){
-            $livro = Livro::find($id);
-            $dados->Titulo = $livro->Titulo;
-            $dados->livro_id = $id;
-            return view('novoAutorLivro', compact('dados'));
-        }
-        return redirect('/livro')->with('danger', 'Não há autores cadastrados!!');
-    }
+    
 }

@@ -12,15 +12,16 @@
         </div><br />
     @endif
     <div class="card-body">
-        <h5 class="card-title" style="text-align: center">Cadastro de Gêneros</h5>
+        <h5 class="card-title" style="text-align: center">Cadastro de Membros</h5>
             <table class="table table-ordered table-hover">
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Gênero</th>
-                        <th>Descrição</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
                         
-                            <th style="text-align:center" colspan="2">Ações</th>
+                        <th style="text-align:center" colspan="2">Ações</th>
                         
                     </tr>
                 </thead>
@@ -28,21 +29,22 @@
                     @foreach ($dados as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->Genero }}</td>
-                        <td>{{ $item->Descricao }}</td>
+                        <td>{{ $item->Nome }}</td>
+                        <td>{{ $item->CPF }}</td>
+                        <td>{{ $item->Telefone }}</td>
                        
                             <td style="text-align:center">
-                                <a href="/genero/editar/{{$item->id}}" class="btn btn-outline-primary">Editar</a>
+                                <a href="/membro/editar/{{$item->id}}" class="btn btn-outline-primary">Editar</a>
                             </td>
                             <td style="text-align:center">
-                                <a href="/genero/apagar/{{$item->id}}" class="btn btn-outline-danger" 
+                                <a href="/membro/apagar/{{$item->id}}" class="btn btn-outline-danger" 
                                 onclick="return confirm('Tem certeza de que deseja remover?');">Deletar</a>
                             </td>
                         
                     </tr>  
                     @endforeach
                     <h1 style="text-align:center">
-                        <a href="/genero/novo" class="btn btn-outline-primary">Novo Gênero</a>
+                        <a href="/membro/novo" class="btn btn-outline-primary">Novo Membro</a>
 </h1>
                 </tbody>
             </table>

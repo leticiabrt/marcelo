@@ -20,21 +20,24 @@
                         <th>Título</th>
                         <th>Autor</th>
                         <th>Gênero</th>
+                        <th>Proprietário</th>
                         <th style="text-align:center" colspan="4">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($dados as $item=>$i)
+                    @foreach ($dados as $item)
                     <tr>
-                        <td>{{ $i['idLivros'] }}</td>
-                        <td>{{ $i['Titulo'] }}</td>
-                        <td>{{ $i['Autor']}}</td>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->Titulo }}</td>
+                        <td>{{ $item->Autor}}</td>
+                        <td>{{ $item->Generos}}</td>
+                        <td>{{ $item->Proprietario}}</td>
                         
                         <td style="text-align:center">
-                            <a href="/livro/editar/{{$i['id']}}" class="btn btn-outline-primary">Editar</a>
+                            <a href="/livro/editar/{{$item->id}}" class="btn btn-outline-primary">Editar</a>
                         </td>
                         <td style="text-align:center">
-                            <a href="/livro/apagar/{{$i['id']}}" class="btn btn-outline-danger" 
+                            <a href="/livro/apagar/{{$item->id}}" class="btn btn-outline-danger" 
                                onclick="return confirm('Tem certeza de que deseja remover?');">Deletar</a>
                         </td>
                         

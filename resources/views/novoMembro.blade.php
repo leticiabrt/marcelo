@@ -18,12 +18,6 @@
             </div>
             <hr>
             <div class="form-group">
-                <label for="email">E-mail:</label>
-                <input type="email" class="form-control" name="email" 
-                       placeholder="Informe o e-mail do membro">
-            </div>
-            <hr>
-            <div class="form-group">
                 <label for="cpf">CPF:</label>
                 <input type="text" class="form-control" name="cpf" 
                        placeholder="Informe o CPF do membro">

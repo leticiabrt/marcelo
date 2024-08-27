@@ -12,14 +12,14 @@
         <form action="{{route('gravaNovoGenero')}}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" class="form-control" name="nome" 
+                <label for="Genero">Nome:</label>
+                <input type="text" class="form-control" name="Genero" 
                        placeholder="Informe o nome do genero">
             </div>
             <hr>
             <div class="form-group">
-                <label for="desc">Descrição:</label>
-                <input type="text" class="form-control" name="desc" 
+                <label for="Descricao">Descrição:</label>
+                <input type="text" class="form-control" name="Descricao" 
                        placeholder="Informe a descrição do genero">
             </div>
             <hr>

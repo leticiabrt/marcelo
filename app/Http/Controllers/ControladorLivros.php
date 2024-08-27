@@ -18,7 +18,16 @@ class ControladorLivros extends Controller
     public function index()
     {
         $dados = Livro::all();
-        return view('exibeLivro', compact('dados'));
+       
+        foreach($dados as $item){
+            $membro = Membro::find($item -> Prop);
+            $item -> Proprietario=$membro-> Nome;
+            $Genero = Genero::find($item-> Genero);
+            $item -> Generos=$Genero->Genero;
+        }
+
+       return view('exibeLivro', compact('dados'));
+        
     }
 
     /**
@@ -60,8 +69,10 @@ class ControladorLivros extends Controller
     public function edit(string $id)
     {
         $dados = Livro::find($id);
+        $genero = Genero::all();
+        $membro = Membro::all();
         if(isset($dados))
-            return view('editaLivro', compact('dados'));
+            return view('editaLivro', compact('dados', 'genero', 'membro'));
         return redirect('/livro')->with('danger', 'Cadastro do livro não localizado!');
     }
 
@@ -71,10 +82,12 @@ class ControladorLivros extends Controller
     public function update(Request $request, string $id)
     {
         $dados = Livro::find($id);
+        
         if(isset($dados)){
             $dados->Titulo = $request->input('titulo');
-            $dados->Ano = $request->input('ano');
             $dados->Autor = $request->input('autor');
+            $dados->Prop = $request->input('membros');
+            $dados->Genero = $request->input('generos');
             $dados->save();
             return redirect('/livro')->with('success', 'Livro cadastrado com sucesso!!');
         }else{
@@ -88,35 +101,12 @@ class ControladorLivros extends Controller
     public function destroy(string $id)
     {
         $dados = Livro::find($id);
-        if(isset($dados)){
-            $livros = LivroAutor::where('autor_id', '=', $id)->first();
-            if(!isset($livros)){
+            if(isset($dados)){
                 $dados->delete();
                 return redirect('/livro')->with('success', 'Cadastro do livro deletado com sucesso!!');
             }else{
                 return redirect('/livro')->with('danger', 'Cadastro não pode ser excluído!!');
             } 
-        }else{
-            return redirect('/livro')->with('danger', 'Cadastro não localizado!!');
-        } 
-    }
-    public function pesquisaLivro(){
-        $dados = array("tabela" => "livro");
-        return view('pesquisa', compact('dados'));
-    }
-    public function procuraLivro(Request $request){
-        $titulo = $request->input('texto');
-        $dados = DB::table('livros')->select('id', 'Titulo', 'AnoPublicacao')->where(DB::raw('lower(Titulo)'), 'like', '%' . strtolower($titulo) . '%')->get();
-        return view('exibeLivros', compact('dados'));
-    }
-    public function novoAutor($id){
-        $dados = DB::table('autors')->orderBy('Nome')->get();
-        if(isset($dados)){
-            $livro = Livro::find($id);
-            $dados->Titulo = $livro->Titulo;
-            $dados->livro_id = $id;
-            return view('novoAutorLivro', compact('dados'));
-        }
-        return redirect('/livro')->with('danger', 'Não há autores cadastrados!!');
+        
     }
 }

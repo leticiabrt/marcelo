@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Genero extends Model
 {
     use HasFactory;
-    protected $fillable = ['genero, descricao'];
+    protected $fillable = ['Genero, Descricao'];
     public function livro(){
         return $this->hasMany('App\Models\Livros', 'livro_id');
     }
