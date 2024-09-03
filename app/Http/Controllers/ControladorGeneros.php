@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Genero;
+use App\Models\Livro;
 use Illuminate\Support\Facades\DB;
 
 class ControladorGeneros extends Controller
@@ -80,12 +81,16 @@ class ControladorGeneros extends Controller
     {
         $dados = Genero::find($id);
             if(isset($dados)){
-                $dados->delete();
-                return redirect('/genero')->with('success', 'Cadastro do gênero deletado com sucesso!!');
+                $livros = Livro::where('Genero', '=', $id)->first();
+                if(!isset($livros)){
+                    $dados->delete();
+                    return redirect('/genero')->with('success', 'Cadastro do gênero deletado com sucesso!!');
+                }else{
+                    return redirect('/genero')->with('danger', 'Cadastro não pode ser excluído!!');
+                } 
             }else{
-                return redirect('/genero')->with('danger', 'Cadastro não pode ser excluído!!');
-            } 
-        
+                return redirect('/genero')->with('danger', 'Cadastro não localizado!!');
+            }    
     }
     
 }

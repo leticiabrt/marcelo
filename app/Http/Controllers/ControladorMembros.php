@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Membro;
+use App\Models\Livro;
+use App\Models\Emprestimo;
 use Illuminate\Support\Facades\DB;
 
 class ControladorMembros extends Controller
@@ -82,12 +84,23 @@ class ControladorMembros extends Controller
     {
         $dados = Membro::find($id);
             if(isset($dados)){
-                $dados->delete();
-                return redirect('/membro')->with('success', 'Cadastro do membro deletado com sucesso!!');
+                $livros = Livro::where('Prop', '=', $id)->first();
+                if(!isset($livros)){
+                    $dados->delete();
+                    return redirect('/membro')->with('success', 'Cadastro do membro deletado com sucesso!!');
+                }else{
+                    return redirect('/membro')->with('danger', 'Cadastro não pode ser excluído!!');
+                } 
+                $emprestimos = Emprestimo::where('locatario_id', '=', $id)->first();
+                if(!isset($emprestimos)){
+                    $dados->delete();
+                    return redirect('/membro')->with('success', 'Cadastro do membro deletado com sucesso!!');
+                }else{
+                    return redirect('/membro')->with('danger', 'Cadastro não pode ser excluído!!');
+                } 
             }else{
-                return redirect('/membro')->with('danger', 'Cadastro não pode ser excluído!!');
-            } 
-        
+                return redirect('/genero')->with('danger', 'Cadastro não localizado!!');
+            }  
     }
 
 }
